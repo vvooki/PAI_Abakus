@@ -11,7 +11,8 @@ import java.util.List;
 
 public interface ProductTypeRepository extends JpaRepository<ProductType, Long> {
 
-
+    @Query("SELECT p from ProductType p WHERE ?1 member of p.documents")
+    public List<ProductType> selectDocuemnt(Documents documents);
 
 
 }

@@ -12,6 +12,13 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
+    @Query(value = "select p FROM Product p where p.id_product > (:id) ")
+    List<Product> getGreaterThan(@Param("id") long id);
 
+    List<Product> findByOrder (Order order);
+
+    Product findByProductType(ProductType productType);
+
+    Product findById(long id);
 
 }
