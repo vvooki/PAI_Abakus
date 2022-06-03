@@ -38,8 +38,6 @@ public class ChangePassView extends Div {
     private PasswordField passwordField2 = new PasswordField();
     private Button button = new Button("Zmień hasło", e -> change());
 
-
-
     private TextField codeField = new TextField("Na adres email został wysłany kod. Wpisz go poniżej");
     private Button execute = new Button("Potwierdź");
 
@@ -99,9 +97,82 @@ public class ChangePassView extends Div {
         updateHelper("");
     }
 
-    private void updateHelper(String s) {
+    private void updateHelper(String password) {
+        if (password.length() > 9) {
+            passwordStrengthText.setText("strong");
+            passwordStrengthText.getStyle().set("color", "var(--lumo-success-color)");
+            checkIcon.setVisible(true);
+        } else if (password.length() > 5) {
+            passwordStrengthText.setText("moderate");
+            passwordStrengthText.getStyle().set("color", "#e7c200");
+            checkIcon.setVisible(false);
+        } else {
+            passwordStrengthText.setText("weak");
+            passwordStrengthText.getStyle().set("color", "var(--lumo-error-color)");
+            checkIcon.setVisible(false);
+        }
     }
+
     private void change() {
+        System.out.println(passwordField + " " + passwordField2);
+        if(passwordField.getValue().equals(passwordField2.getValue())) {
+            String code = generateCode();
+            templateSimpleMessage(code);
+            codeField.setEnabled(true);
+            execute.setEnabled(true);
+            execute.addClickListener(e -> changePassword(code));
+        } else System.out.println("nie udało się zmienić hasła");
+    }
+
+    private void changePassword(String code) {
+        if (codeField.getValue().equals(code)) {
+            System.out.println("zmieniam haslo");
+            Client client = userData.getClient();
+            String crypted_password = passwordEncoder.encode(codeField.getValue());
+            client.setPassword(crypted_password);
+            clientRepository.save(client);
+        }
+    }
+
+    private void templateSimpleMessage(String code) {
+        String mail = userData.getClient().getEmail();
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("testowymaildoprojektu@gmail.com");
+        message.setTo(mail);
+        message.setText("Zarejestrowaliśmy próbę zmiany hasła na twoim koncie. \nW celu finalizacji operacji wprowadź poniższy kod: " + code);
+        message.setSubject("Kod bezpieczeństwa | Abakus Podatki");
+        emailSender.send(message);
+    }
+
+    private String generateCode() {
+        // create a string of all characters
+        String alphabet = "1A2B3C4D5E6F7G8H9IJKLMNOPQRSTUVWXYZ";
+
+        // create random string builder
+        StringBuilder sb = new StringBuilder();
+
+        // create an object of Random class
+        Random random = new Random();
+
+        // specify length of random string
+        int length = 4;
+
+        for(int i = 0; i < length; i++) {
+
+            // generate random index number
+            int index = random.nextInt(alphabet.length());
+
+            // get character specified by index
+            // from the string
+            char randomChar = alphabet.charAt(index);
+
+            // append the character to string builder
+            sb.append(randomChar);
+        }
+
+        String randomString = sb.toString();
+        return randomString;
     }
 
 }
