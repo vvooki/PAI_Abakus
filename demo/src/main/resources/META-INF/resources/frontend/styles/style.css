@@ -1,0 +1,9 @@
+.sent {
+    background-color: #77876c;
+    color: whitesmoke;
+}
+
+.notSent {
+    background-color: #6b5050;
+    color: whitesmoke;
+}
