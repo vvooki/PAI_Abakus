@@ -57,7 +57,7 @@ public class addClient extends VerticalLayout {
         if(clientRepository.findByEmail(email.getValue()) == null){
             templateSimpleMessage(password);
             String passwordTemp = passwordEncoder.encode(password);
-            Client client = new Client(0l, name.getValue(),surname.getValue(),Integer.parseInt(phoneNumber.getValue()),email.getValue(), passwordTemp, "user");
+            Client client = new Client(0l, name.getValue(),surname.getValue(),Integer.parseInt(phoneNumber.getValue()),email.getValue(), passwordTemp, "USER");
             clientRepository.save(client);
             System.out.println(client.getId_client());
             //krypto hasło -> zapisz w bazie
