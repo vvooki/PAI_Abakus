@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.PostConstruct;
 
-@Route("")
+@Route("start")
 public class StartView extends VerticalLayout {
 
     private Button button = new Button("ADMIN", e -> admin());
