@@ -47,6 +47,8 @@ public class addOrder extends VerticalLayout {
     List<Product> products_id = new ArrayList<Product>();
     //List<ClientDocuments> clientDocumentsList = new ArrayList<>();
     Set<Documents> documentsSet = new HashSet<>();
+    List<Product> firstIdProduct1;
+    List<Order> firstIdOrder1;
     long firstIdProduct;
     long firstIdOrder;
 
@@ -68,8 +70,10 @@ public class addOrder extends VerticalLayout {
     private void init(){
         //productField.setLabel("Usługa: ");
         //firstId = productRepository.getAllIds().getId_product();
-        firstIdProduct = productRepository.findAll().size();
-        firstIdOrder = orderRepository.findAll().size();
+        firstIdProduct1 = productRepository.findAll();
+        firstIdProduct = firstIdProduct1.get(firstIdProduct1.size()-1).getId_product();
+        firstIdOrder1 = orderRepository.findAll();
+        firstIdOrder = firstIdOrder1.get(firstIdOrder1.size()-1).getId_order();
         setSizeFull();
         //productField.setItems(productTypeRepository.findAll());
 
