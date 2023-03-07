@@ -1,12 +1,10 @@
-# PAI_Abakus
-
-Aplikacja dla biura rachunkowego.
+# Abakus Accounting Office - dashbord
 
 Admin:
-- dodawanie nowych klientów, usług i zamówień
-- zarządzanie dokumentami
-- wysyłanie powiadomień przypominających do klientów
+- adding new clients, orders and products to the system
+- managing documents
+- automatic & manual notifications send directly to client e-mail address
 
-Użytkownik: 
-- przeglądanie swoich zamówień i dokumentów do dostarczenia
-- wysyłanie zaległych dokumentów
+Client: 
+- browsing client's current orders/products and connected with them required documents
+- uploading required documents to current order
